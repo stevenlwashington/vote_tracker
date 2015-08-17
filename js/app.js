@@ -5,7 +5,6 @@ var Photo = function(fileLocation){
   this.votes = 1;
 }
 
-
 var kitten1 = new Photo('img/kittens/kitten1.jpg');
 var kitten2 = new Photo('img/kittens/kitten2.jpg');
 var kitten3 = new Photo('img/kittens/kitten3.jpg');
@@ -21,10 +20,38 @@ var kitten12 = new Photo('img/kittens/kitten12.jpg');
 var kitten13 = new Photo('img/kittens/kitten13.jpg');
 var kitten14 = new Photo('img/kittens/kitten14.jpg');
 
-var photoArray = [{kitten1}, {kitten2}, {kitten3}, {kitten4}, {kitten5}, {kitten6}, {kitten7}, {kitten8}, {kitten9}, {kitten10}, {kitten11}, {kitten12}, {kitten13}, {kitten14}];
+var photoArray = [kitten1, kitten2, kitten3, kitten4, kitten5, kitten6,kitten7, kitten8, kitten9, kitten10, kitten11, kitten12, kitten13, kitten14];
 
 var Tracker = function (){
+  this.leftPhoto = "";
+  this.rightPhoto = "";
   //left or right photo? per Sam's code.
+}
+
+var tracker = new Tracker();
+
+Tracker.prototype.genRand = function() {
+  var randLeft = Math.floor(Math.random() * (14 - 1)) +1 ;
+  var randRight = Math.floor(Math.random() * (14 - 1)) +1 ;
+
+  console.log(randLeft);
+  console.log(randRight);
+
+  while (randLeft == randRight) {
+    randLeft = Math.floor(Math.random() * (14 - 1)) +1 ;
+  }
+  this.leftPhoto = photoArray[randLeft].path;
+  this.rightPhoto = photoArray[randRight].path;
+  console.log(this.leftPhoto);
+  console.log(this.rightPhoto);
+}
+
+Tracker.prototype.displayPhoto = function() {
+  tracker.genRand();
+  var elLeft = document.getElementById('displayLeft');
+  var elRight = document.getElementById('displayRight');
+    elLeft.src =  this.leftPhoto;
+    elRight.src = this.rightPhoto;
 }
 
 Tracker.prototype.waitVote = function(){
@@ -47,6 +74,7 @@ Tracker.prototype.displayWinner = function(){
   //update h2 id="message"
 }
 
-
+// tracker.genRand();
+tracker.displayPhoto();
 
 
