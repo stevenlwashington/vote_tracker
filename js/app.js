@@ -61,11 +61,11 @@ Tracker.prototype.displayChart = function () {
   new Chart(chart).Pie(pieData, pieOptions);
   var pieData = [
     {
-      value: 1,
+      value: 50,
       color:"#878BB6"
     },
     {
-      value : 1,
+      value : 50,
       color : "#4ACAB4"
     }
   ];
