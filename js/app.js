@@ -79,19 +79,17 @@ Tracker.prototype.displayDummyChart = function () {
 };
 
 Tracker.prototype.displayRealChart = function () {
- console.log("randLeft is:" + randLeft);
- console.log("randRight is:" + randRight);
- console.log("randRight votes is" + photoArray[randRight].votes)
- console.log("randLeft votes is" + photoArray[randLeft].votes)
+ var rightVotes = photoArray[randRight].votes;
+ var leftVotes = photoArray[randLeft].votes;
  var chart = document.getElementById('chart').getContext("2d");
  console.log(chart);
  var pieData = [
    {
-     value: (photoArray[randLeft].votes/(photoArray[randLeft].votes + photoArray[randRight].votes)),
+     value: (leftVotes/(leftVotes + rightVotes)),
      color:"#878BB6"
    },
    {
-     value : (photoArray[randRight].votes/(photoArray[randLeft].votes + photoArray[randRight].votes)),
+     value : (rightVotes/(leftVotes + rightVotes)),
      color : "#4ACAB4"
    }
  ];
@@ -106,16 +104,14 @@ Tracker.prototype.displayRealChart = function () {
 
 
 Tracker.prototype.receiveVote = function (e) {
-    e.preventDefault(); //this is throwing an error
+    // e.preventDefault();
     var target = e.target;
     console.log("left index is: " + randLeft);
     console.log("right index is: " + randRight);
     if(target.id == 'displayLeft') {
-      console.log("left clicked");
       photoArray[randLeft].votes = photoArray[randLeft].votes + 1;
       console.log("left votes: " + photoArray[randLeft].votes);
     } else  {
-      console.log("right clicked");
       photoArray[randRight].votes = photoArray[randRight].votes + 1;
       console.log("right votes: " + photoArray[randRight].votes);
     }
@@ -125,7 +121,6 @@ Tracker.prototype.receiveVote = function (e) {
 
 var elFormLeft = document.getElementById('displayLeft');
 elFormLeft.addEventListener('click', function(e) {
-  console.dir(e);
   tracker.receiveVote(e);
 });
 
@@ -134,7 +129,15 @@ elFormRight.addEventListener('click', function(e) {
   tracker.receiveVote(e);
 });
 
+var elSubmit = document.getElementById("submitButton");
+elSubmit.addEventListener('click', function(e) {
+    tracker.displayWinner(e);
+});
 
+var elNext = document.getElementById("nextButton");
+elNext.addEventListener('click', function(e) {
+    tracker.waitVote(e);
+});
 
 Tracker.prototype.waitVote = function(){
   console.log("I got back to wait Vote");
@@ -143,24 +146,17 @@ Tracker.prototype.waitVote = function(){
   submitButton.value= 'Submit Vote';
   tracker.displayDummyChart();
   tracker.displayPhoto(); //calls genRand
-  var elSubmit = document.getElementById("submitButton");
-  elSubmit.addEventListener('click', function(e) {
-    tracker.displayWinner(e);
-  });
+
 };
 
 Tracker.prototype.displayWinner = function(){
   //this is state2 after vote that displays the result
+  console.log("I got into display winner");
+  //STILL TO DO:
   //highlight the winning photo - remove button elements from these photos
   //update h2 id="message"
-  console.log("I got into display winner");
-  var submitButton = document.getElementById('submitButton');
-  submitButton.value= 'Next Kittens';
+  //Need to remove ability to vote on buttons in this function
   tracker.displayRealChart();
-  var elSubmit = document.getElementById("submitButton");
-  elSubmit.addEventListener('click', function(e) {
-    tracker.waitVote(e);
-  });
 };
 
 
