@@ -25,14 +25,15 @@ var photoArray = [kitten1, kitten2, kitten3, kitten4, kitten5, kitten6,kitten7, 
 var Tracker = function (){
   this.leftPhoto = "";
   this.rightPhoto = "";
-  //left or right photo? per Sam's code.
 }
 
 var tracker = new Tracker();
+var randLeft = 0;
+var randRight = 0;
 
 Tracker.prototype.genRand = function() {
-  var randLeft = Math.floor(Math.random() * (14 - 1)) +1 ;
-  var randRight = Math.floor(Math.random() * (14 - 1)) +1 ;
+  randLeft = Math.floor(Math.random() * (14 - 1)) +1 ;
+  randRight = Math.floor(Math.random() * (14 - 1)) +1 ;
 
   console.log(randLeft);
   console.log(randRight);
@@ -54,27 +55,73 @@ Tracker.prototype.displayPhoto = function() {
     elRight.src = this.rightPhoto;
 }
 
+Tracker.prototype.displayChart = function () {
+  //
+}
+
+Tracker.prototype.receiveVote = function (event) {
+    event.preventDefault(); //this is throwing an error
+    var target = event.target;
+    console.log(target);
+    console.log("left index is: " + randLeft);
+    console.log("right index is: " + randRight);
+    if(target.id == 'displayLeft') {
+      console.log("left clicked");
+      photoArray[randLeft].votes = photoArray[randLeft].votes + 1;
+      console.log("left votes: " + photoArray[randLeft].votes);
+    } else  {
+      console.log("right clicked");
+      photoArray[randRight].votes = photoArray[randRight].votes + 1;
+      console.log("right votes: " + photoArray[randRight].votes);
+    }
+}
+
+//NOT SURE IF THESE SHOULD GO HERE OR IN WAITVOTE
+// var elFormLeft = document.getElementById('displayLeft');
+// elFormLeft.addEventListener('click', tracker.receiveVote);
+// var elFormRight = document.getElementById('displayRight');
+// elFormRight.addEventListener('click', tracker.receiveVote);
+
+
 Tracker.prototype.waitVote = function(){
   //this is state1 when the user needs to vote on a kitten
   //at the end of this method, something needs to transition us to displayWinner
-  //generate 2 Random numbers to prevent dupes
-  //displayPhoto
+
+
+  tracker.displayPhoto(); //calls genRand
+
+  //NOT SURE IF THESE SHOULD GO HERE OR IN WAITVOTE
+  var elFormLeft = document.getElementById('displayLeft');
+  elFormLeft.addEventListener('click', tracker.receiveVote);
+  var elFormRight = document.getElementById('displayRight');
+  elFormRight.addEventListener('click', tracker.receiveVote);
+
+  tracker.receiveVote();
+  tracker.displayWinner();
+  //tracker.displayWinner();
   //display neutral chart as 50/50
-  //receiveVote using event listener
   //this is a reminder that receiveVote needs to kick us to displayWinner
 }
 
 Tracker.prototype.displayWinner = function(){
   //this is state2 after vote that displays the result
   //something needs to transition us to waitVote
-  //this will highlight the winning photo
+  //this will highlight the winning photo - remove button elements from these photos
   //this will update chart data
   //this will display chart data
   //display div id="nextKitten"
   //update h2 id="message"
+
+  console.log("I got into display winner")
+
+  var nextKitten = document.getElementById('nextKittenButton');
+  nextKitten.removeAttribute('hidden');
+  tracker.waitVote();
 }
 
-// tracker.genRand();
-tracker.displayPhoto();
+// tracker.displayPhoto();
+// tracker.receiveVote();
+
+tracker.waitVote();
 
 
