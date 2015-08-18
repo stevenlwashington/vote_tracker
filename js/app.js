@@ -40,7 +40,6 @@ Tracker.prototype.genRand = function() {
 
   while (randLeft == randRight) {
     randLeft = Math.floor(Math.random() * (14 - 1)) +1 ;
-    console.log("while loop")
   }
   this.leftPhoto = photoArray[randLeft].path;
   this.rightPhoto = photoArray[randRight].path;
@@ -57,8 +56,27 @@ Tracker.prototype.displayPhoto = function() {
 };
 
 Tracker.prototype.displayChart = function () {
+  var chart = document.getElementById('chart');
+  console.log(chart);
+  new Chart(chart).Pie(pieData, pieOptions);
+  var pieData = [
+    {
+      value: 1,
+      color:"#878BB6"
+    },
+    {
+      value : 1,
+      color : "#4ACAB4"
+    }
+  ];
 
+  var pieOptions = {
+  segmentShowStroke : false,
+  animateScale : true
+  }
 };
+
+
 
 Tracker.prototype.receiveVote = function (e) {
     //event.preventDefault(); //this is throwing an error
@@ -92,16 +110,15 @@ elFormRight.addEventListener('click', function(e) {
 
 
 Tracker.prototype.waitVote = function(){
+  console.log("I got back to wait Vote");
   //this is state1 when the user needs to vote on a kitten
-  //at the end of this method, something needs to transition us to displayWinner
   //display neutral chart as 50/50
+  tracker.displayChart();
   tracker.displayPhoto(); //calls genRand
-
-  //these aren't working yet, but something like this is needed
-  // var elSubmit = document.getElementById("submitButton");
-  // elSubmit.addEventListener('click', function(e) {
-  //   tracker.displayWinner(e);
-  // });
+  var elSubmit = document.getElementById("submitButton");
+  elSubmit.addEventListener('click', function(e) {
+    tracker.displayWinner(e);
+  });
 };
 
 Tracker.prototype.displayWinner = function(){
@@ -113,6 +130,10 @@ Tracker.prototype.displayWinner = function(){
   //update h2 id="message"
   //change message on submit button
   console.log("I got into display winner")
+  var elSubmit = document.getElementById("submitButton");
+  elSubmit.addEventListener('click', function(e) {
+    tracker.waitVote(e);
+  });
 };
 
 
