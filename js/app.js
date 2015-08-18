@@ -142,8 +142,10 @@ elNext.addEventListener('click', function(e) {
 Tracker.prototype.waitVote = function(){
   console.log("I got back to wait Vote");
   //this is state1 when the user needs to vote on a kitten
-  var submitButton = document.getElementById('submitButton');
-  submitButton.value= 'Submit Vote';
+
+  // var submitButton = document.getElementById('submitButton');
+  // submitButton.value= 'Submit Vote';
+
   tracker.displayDummyChart();
   tracker.displayPhoto(); //calls genRand
 
