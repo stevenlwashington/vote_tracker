@@ -55,31 +55,58 @@ Tracker.prototype.displayPhoto = function() {
     elRight.src = this.rightPhoto;
 };
 
-Tracker.prototype.displayChart = function () {
-  var chart = document.getElementById('chart');
-  console.log(chart);
-  new Chart(chart).Pie(pieData, pieOptions);
-  var pieData = [
-    {
-      value: 50,
-      color:"#878BB6"
-    },
-    {
-      value : 50,
-      color : "#4ACAB4"
-    }
-  ];
 
-  var pieOptions = {
-  segmentShowStroke : false,
-  animateScale : true
-  }
+Tracker.prototype.displayDummyChart = function () {
+ var chart = document.getElementById('chart').getContext("2d");
+ console.log(chart);
+ var pieData = [
+   {
+     value: 1,
+     color:"#878BB6"
+   },
+   {
+     value : 1,
+     color : "#4ACAB4"
+   }
+ ];
+
+ var pieOptions = {
+ segmentShowStroke : false,
+ animateScale : true,
+ }
+
+ new Chart(chart).Pie(pieData, pieOptions);
+};
+
+Tracker.prototype.displayRealChart = function () {
+ console.log("randLeft is:" + randLeft);
+ console.log("randRight is:" + randRight);
+ console.log("randRight votes is" + photoArray[randRight].votes)
+ console.log("randLeft votes is" + photoArray[randLeft].votes)
+ var chart = document.getElementById('chart').getContext("2d");
+ console.log(chart);
+ var pieData = [
+   {
+     value: (photoArray[randLeft].votes/(photoArray[randLeft].votes + photoArray[randRight].votes)),
+     color:"#878BB6"
+   },
+   {
+     value : (photoArray[randRight].votes/(photoArray[randLeft].votes + photoArray[randRight].votes)),
+     color : "#4ACAB4"
+   }
+ ];
+
+ var pieOptions = {
+ segmentShowStroke : false,
+ animateScale : true,
+ }
+
+ new Chart(chart).Pie(pieData, pieOptions);
 };
 
 
-
 Tracker.prototype.receiveVote = function (e) {
-    //event.preventDefault(); //this is throwing an error
+    e.preventDefault(); //this is throwing an error
     var target = e.target;
     console.log("left index is: " + randLeft);
     console.log("right index is: " + randRight);
@@ -112,8 +139,9 @@ elFormRight.addEventListener('click', function(e) {
 Tracker.prototype.waitVote = function(){
   console.log("I got back to wait Vote");
   //this is state1 when the user needs to vote on a kitten
-  //display neutral chart as 50/50
-  tracker.displayChart();
+  var submitButton = document.getElementById('submitButton');
+  submitButton.value= 'Submit Vote';
+  tracker.displayDummyChart();
   tracker.displayPhoto(); //calls genRand
   var elSubmit = document.getElementById("submitButton");
   elSubmit.addEventListener('click', function(e) {
@@ -123,13 +151,12 @@ Tracker.prototype.waitVote = function(){
 
 Tracker.prototype.displayWinner = function(){
   //this is state2 after vote that displays the result
-  //something needs to transition us to waitVote at end (in an event listener
-  //thighlight the winning photo - remove button elements from these photos
-  //update chart data
-  //display chart data
+  //highlight the winning photo - remove button elements from these photos
   //update h2 id="message"
-  //change message on submit button
-  console.log("I got into display winner")
+  console.log("I got into display winner");
+  var submitButton = document.getElementById('submitButton');
+  submitButton.value= 'Next Kittens';
+  tracker.displayRealChart();
   var elSubmit = document.getElementById("submitButton");
   elSubmit.addEventListener('click', function(e) {
     tracker.waitVote(e);
