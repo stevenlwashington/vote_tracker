@@ -6,8 +6,19 @@ color-
 
 body {
   background-color: #AEAEAE;
+  font-family: 'Boogaloo', cursive;
+  width: 900px;
 }
 
+#message {
+  text-align: center;
+  font-size: 30px;
+}
+
+#title {
+  text-align: center;
+  font-size: 35px;
+}
 
 #kittenLeft {
   border: 2px solid #E64C66;
@@ -29,36 +40,31 @@ body {
   left: 300px;
 }
 
-main {
-  position: relative;
-
-}
 
 #submitSection {
   position: relative;
   top: 300px;
-  left: 375px;
+  left: 400px;
 }
 
 #submitButton {
     background-color: #2d3e50;
     color: white;
     border-radius: 10px;
-/*    visibility: visible;*/
 }
 
 #nextButton {
     background-color: #2d3e50;
     color: white;
     border-radius: 10px;
-/*    visibility: hidden;*/
 
 }
 
-/*.visible {
-  visibility: visible;
-}
+#main .winner {
+  height: 300px;
+  width: 300px;
+  border: 10px solid #E5DD00;
+  padding: -3px;
+  margin: -3px;
 
-.hidden {
-  visibility: hidden;
-}*/
+}
