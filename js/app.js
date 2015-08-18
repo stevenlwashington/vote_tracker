@@ -58,7 +58,6 @@ Tracker.prototype.displayPhoto = function() {
 };
 
 
-
 Tracker.prototype.displayChart = function (leftData, rightData) {
  // var rightVotes = photoArray[randRight].votes;
  // var leftVotes = photoArray[randLeft].votes;
@@ -66,12 +65,12 @@ Tracker.prototype.displayChart = function (leftData, rightData) {
  console.log(chart);
  var pieData = [
    {
-     value: (leftData/(leftData + rightData)),
-     color:"#878BB6"
+     value : (rightData/(leftData + rightData)),
+     color : "#1BBC9B"
    },
    {
-     value : (rightData/(leftData + rightData)),
-     color : "#4ACAB4"
+     value: (leftData/(leftData + rightData)),
+     color:"#E64C66"
    }
  ];
   var pieOptions = {
@@ -122,11 +121,15 @@ Tracker.prototype.waitVote = function(){
 
   // var submitButton = document.getElementById('submitButton');
   // submitButton.value= 'Submit Vote';
+  $('.winner').removeClass('winner');
 
   tracker.displayChart(1, 1);
   tracker.displayPhoto(); //calls genRand
   $('#nextButton').hide();
   $('#submitButton').show();
+
+  $('#message').text('Pick your favorite kitten!');
+
 
 };
 
@@ -140,6 +143,19 @@ Tracker.prototype.displayWinner = function(){
   tracker.displayChart(photoArray[randLeft].votes, photoArray[randRight].votes);
   $('#nextButton').show();
   $('#submitButton').hide();
+
+  if (photoArray[randRight].votes > photoArray[randLeft].votes){
+      $('#message').text('Survey says right is cuter!');
+      $('#displayRight').addClass('winner');
+  } else if (photoArray[randLeft].votes > photoArray[randRight].votes){
+      $('#message').text('Survey says left is cuter!');
+      $('#displayLeft').addClass('winner');
+
+    } else {
+      $('#message').text('Survey says they are both cute!');
+    }
+
+
 };
 
 
