@@ -44,13 +44,21 @@ main {
     background-color: #2d3e50;
     color: white;
     border-radius: 10px;
-    visibility: visible;
+/*    visibility: visible;*/
 }
 
 #nextButton {
     background-color: #2d3e50;
     color: white;
     border-radius: 10px;
-    visibility: hidden;
+/*    visibility: hidden;*/
 
 }
+
+/*.visible {
+  visibility: visible;
+}
+
+.hidden {
+  visibility: hidden;
+}*/

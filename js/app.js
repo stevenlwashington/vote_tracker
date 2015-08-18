@@ -1,4 +1,6 @@
 'use strict';
+$(document).ready(function(){
+
 
 var Photo = function(fileLocation){
   this.path = fileLocation;
@@ -56,6 +58,7 @@ Tracker.prototype.displayPhoto = function() {
 };
 
 
+
 Tracker.prototype.displayChart = function (leftData, rightData) {
  // var rightVotes = photoArray[randRight].votes;
  // var leftVotes = photoArray[randLeft].votes;
@@ -93,7 +96,6 @@ Tracker.prototype.receiveVote = function (e) {
     console.dir(target);
 };
 
-
 var elFormLeft = document.getElementById('displayLeft');
 elFormLeft.addEventListener('click', function(e) {
   tracker.receiveVote(e);
@@ -123,6 +125,8 @@ Tracker.prototype.waitVote = function(){
 
   tracker.displayChart(1, 1);
   tracker.displayPhoto(); //calls genRand
+  $('#nextButton').hide();
+  $('#submitButton').show();
 
 };
 
@@ -134,9 +138,12 @@ Tracker.prototype.displayWinner = function(){
   //update h2 id="message"
   //Need to remove ability to vote on buttons in this function
   tracker.displayChart(photoArray[randLeft].votes, photoArray[randRight].votes);
+  $('#nextButton').show();
+  $('#submitButton').hide();
 };
 
 
 tracker.waitVote();
 
+});
 
