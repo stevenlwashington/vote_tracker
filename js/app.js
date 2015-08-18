@@ -40,12 +40,13 @@ Tracker.prototype.genRand = function() {
 
   while (randLeft == randRight) {
     randLeft = Math.floor(Math.random() * (14 - 1)) +1 ;
+    console.log("while loop")
   }
   this.leftPhoto = photoArray[randLeft].path;
   this.rightPhoto = photoArray[randRight].path;
   console.log(this.leftPhoto);
   console.log(this.rightPhoto);
-}
+};
 
 Tracker.prototype.displayPhoto = function() {
   tracker.genRand();
@@ -53,34 +54,43 @@ Tracker.prototype.displayPhoto = function() {
   var elRight = document.getElementById('displayRight');
     elLeft.src =  this.leftPhoto;
     elRight.src = this.rightPhoto;
-}
+};
 
 Tracker.prototype.displayChart = function () {
   //
-}
+};
 
-Tracker.prototype.receiveVote = function (event) {
-    event.preventDefault(); //this is throwing an error
-    var target = event.target;
-    console.log(target);
-    console.log("left index is: " + randLeft);
-    console.log("right index is: " + randRight);
+Tracker.prototype.receiveVote = function (e) {
+    //event.preventDefault(); //this is throwing an error
+    // console.dir(e);
+    var target = e.target;
+    // console.log(target);
+    // console.log("left index is: " + randLeft);
+    // console.log("right index is: " + randRight);
     if(target.id == 'displayLeft') {
-      console.log("left clicked");
+      // console.log("left clicked");
       photoArray[randLeft].votes = photoArray[randLeft].votes + 1;
-      console.log("left votes: " + photoArray[randLeft].votes);
+      // console.log("left votes: " + photoArray[randLeft].votes);
     } else  {
-      console.log("right clicked");
+      // console.log("right clicked");
       photoArray[randRight].votes = photoArray[randRight].votes + 1;
-      console.log("right votes: " + photoArray[randRight].votes);
+      // console.log("right votes: " + photoArray[randRight].votes);
     }
-}
+    console.dir(target);
+};
 
-//NOT SURE IF THESE SHOULD GO HERE OR IN WAITVOTE
-// var elFormLeft = document.getElementById('displayLeft');
-// elFormLeft.addEventListener('click', tracker.receiveVote);
-// var elFormRight = document.getElementById('displayRight');
-// elFormRight.addEventListener('click', tracker.receiveVote);
+
+var elFormLeft = document.getElementById('displayLeft');
+elFormLeft.addEventListener('click', function(e) {
+  console.dir(e);
+  tracker.receiveVote(e);
+});
+
+var elFormRight = document.getElementById('displayRight');
+elFormRight.addEventListener('click', function(e) {
+  tracker.receiveVote(e);
+});
+
 
 
 Tracker.prototype.waitVote = function(){
@@ -91,17 +101,13 @@ Tracker.prototype.waitVote = function(){
   tracker.displayPhoto(); //calls genRand
 
   //NOT SURE IF THESE SHOULD GO HERE OR IN WAITVOTE
-  var elFormLeft = document.getElementById('displayLeft');
-  elFormLeft.addEventListener('click', tracker.receiveVote);
-  var elFormRight = document.getElementById('displayRight');
-  elFormRight.addEventListener('click', tracker.receiveVote);
 
-  tracker.receiveVote();
-  tracker.displayWinner();
+  // tracker.receiveVote();
+  tracker.displayWinner();//need to be in an event listener
   //tracker.displayWinner();
   //display neutral chart as 50/50
   //this is a reminder that receiveVote needs to kick us to displayWinner
-}
+};
 
 Tracker.prototype.displayWinner = function(){
   //this is state2 after vote that displays the result
@@ -114,10 +120,10 @@ Tracker.prototype.displayWinner = function(){
 
   console.log("I got into display winner")
 
-  var nextKitten = document.getElementById('nextKittenButton');
-  nextKitten.removeAttribute('hidden');
-  tracker.waitVote();
-}
+  // var nextKitten = document.getElementById('nextKittenButton');
+  // nextKitten.removeAttribute('hidden');
+  // tracker.waitVote(); //needs to be in an event listener
+};
 
 // tracker.displayPhoto();
 // tracker.receiveVote();
