@@ -57,24 +57,22 @@ Tracker.prototype.displayPhoto = function() {
 };
 
 Tracker.prototype.displayChart = function () {
-  //
+
 };
 
 Tracker.prototype.receiveVote = function (e) {
     //event.preventDefault(); //this is throwing an error
-    // console.dir(e);
     var target = e.target;
-    // console.log(target);
-    // console.log("left index is: " + randLeft);
-    // console.log("right index is: " + randRight);
+    console.log("left index is: " + randLeft);
+    console.log("right index is: " + randRight);
     if(target.id == 'displayLeft') {
-      // console.log("left clicked");
+      console.log("left clicked");
       photoArray[randLeft].votes = photoArray[randLeft].votes + 1;
-      // console.log("left votes: " + photoArray[randLeft].votes);
+      console.log("left votes: " + photoArray[randLeft].votes);
     } else  {
-      // console.log("right clicked");
+      console.log("right clicked");
       photoArray[randRight].votes = photoArray[randRight].votes + 1;
-      // console.log("right votes: " + photoArray[randRight].votes);
+      console.log("right votes: " + photoArray[randRight].votes);
     }
     console.dir(target);
 };
@@ -96,37 +94,27 @@ elFormRight.addEventListener('click', function(e) {
 Tracker.prototype.waitVote = function(){
   //this is state1 when the user needs to vote on a kitten
   //at the end of this method, something needs to transition us to displayWinner
-
-
+  //display neutral chart as 50/50
   tracker.displayPhoto(); //calls genRand
 
-  //NOT SURE IF THESE SHOULD GO HERE OR IN WAITVOTE
-
-  // tracker.receiveVote();
-  tracker.displayWinner();//need to be in an event listener
-  //tracker.displayWinner();
-  //display neutral chart as 50/50
-  //this is a reminder that receiveVote needs to kick us to displayWinner
+  //these aren't working yet, but something like this is needed
+  // var elSubmit = document.getElementById("submitButton");
+  // elSubmit.addEventListener('click', function(e) {
+  //   tracker.displayWinner(e);
+  // });
 };
 
 Tracker.prototype.displayWinner = function(){
   //this is state2 after vote that displays the result
-  //something needs to transition us to waitVote
-  //this will highlight the winning photo - remove button elements from these photos
-  //this will update chart data
-  //this will display chart data
-  //display div id="nextKitten"
+  //something needs to transition us to waitVote at end (in an event listener
+  //thighlight the winning photo - remove button elements from these photos
+  //update chart data
+  //display chart data
   //update h2 id="message"
-
+  //change message on submit button
   console.log("I got into display winner")
-
-  // var nextKitten = document.getElementById('nextKittenButton');
-  // nextKitten.removeAttribute('hidden');
-  // tracker.waitVote(); //needs to be in an event listener
 };
 
-// tracker.displayPhoto();
-// tracker.receiveVote();
 
 tracker.waitVote();
 
