@@ -56,52 +56,27 @@ Tracker.prototype.displayPhoto = function() {
 };
 
 
-Tracker.prototype.displayDummyChart = function () {
+Tracker.prototype.displayChart = function (leftData, rightData) {
+ // var rightVotes = photoArray[randRight].votes;
+ // var leftVotes = photoArray[randLeft].votes;
  var chart = document.getElementById('chart').getContext("2d");
  console.log(chart);
  var pieData = [
    {
-     value: 1,
+     value: (leftData/(leftData + rightData)),
      color:"#878BB6"
    },
    {
-     value : 1,
+     value : (rightData/(leftData + rightData)),
      color : "#4ACAB4"
    }
  ];
-
- var pieOptions = {
- segmentShowStroke : false,
- animateScale : true,
- }
-
- new Chart(chart).Pie(pieData, pieOptions);
-};
-
-Tracker.prototype.displayRealChart = function () {
- var rightVotes = photoArray[randRight].votes;
- var leftVotes = photoArray[randLeft].votes;
- var chart = document.getElementById('chart').getContext("2d");
- console.log(chart);
- var pieData = [
-   {
-     value: (leftVotes/(leftVotes + rightVotes)),
-     color:"#878BB6"
-   },
-   {
-     value : (rightVotes/(leftVotes + rightVotes)),
-     color : "#4ACAB4"
+  var pieOptions = {
+     segmentShowStroke : false,
+     animateScale : true,
    }
- ];
-
- var pieOptions = {
- segmentShowStroke : false,
- animateScale : true,
- }
-
- new Chart(chart).Pie(pieData, pieOptions);
+  new Chart(chart).Pie(pieData, pieOptions);
 };
-
 
 Tracker.prototype.receiveVote = function (e) {
     // e.preventDefault();
@@ -146,7 +121,7 @@ Tracker.prototype.waitVote = function(){
   // var submitButton = document.getElementById('submitButton');
   // submitButton.value= 'Submit Vote';
 
-  tracker.displayDummyChart();
+  tracker.displayChart(1, 1);
   tracker.displayPhoto(); //calls genRand
 
 };
@@ -158,7 +133,7 @@ Tracker.prototype.displayWinner = function(){
   //highlight the winning photo - remove button elements from these photos
   //update h2 id="message"
   //Need to remove ability to vote on buttons in this function
-  tracker.displayRealChart();
+  tracker.displayChart(photoArray[randLeft].votes, photoArray[randRight].votes);
 };
 
 
