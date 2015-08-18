@@ -5,12 +5,16 @@
     <meta charset="utf-8" />
     <script src="js/Chart.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+     <link href="css/style.css" text="text/css" rel="stylesheet"/>
   </head>
 
   <body>
-    <h2 id="message">Dummy Message</h2>
+    <h2 id="title">Kitten Komparison</h2>
+    <h4 id="message">Pick a kitten!</h4>
 
-    <div id="kittenLeft" border="1px solid">
+  <main>
+
+    <div id="kittenLeft">
       <input id = "displayLeft" type="image" src="" alt="submit">
     </div>
 
@@ -18,9 +22,11 @@
       <canvas id="chart" width="300" height="200"></canvas>
     </div>
 
-    <div id="kittenRight" border="1px solid">
+    <div id="kittenRight">
       <input id = "displayRight" type="image" src="" alt="submit">
     </div>
+
+  </main>
 
     <div id="submitSection">
 
@@ -28,7 +34,7 @@
 
       <input type="submit" value="Next Kitten" id="nextButton">
 
-    </div>
+    </div> <!--submitSection-->
 
     <script src="js/app.js"></script>
   </body>
