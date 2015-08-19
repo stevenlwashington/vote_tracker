@@ -5,30 +5,36 @@
     <meta charset="utf-8" />
     <script src="js/Chart.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+     <link href="css/style.css" text="text/css" rel="stylesheet"/>
+     <link href='http://fonts.googleapis.com/css?family=Boogaloo' rel='stylesheet' type='text/css'>
   </head>
 
   <body>
-    <h2 id="message"></h2>
+    <h2 id="title">Kitten Komparison</h2>
+    <h4 id="message">Pick a kitten!</h4>
 
-      <div id="kittenLeft" border="1px solid">
-        <input id = "displayLeft" type="image" src="" alt="submit">
-      </div>
+  <main id="main">
 
-      <div id="kittenRight" border="1px solid">
-        <input id = "displayRight" type="image" src="" alt="submit">
-      </div>
+    <div id="kittenLeft">
+      <img id = "displayLeft" type="image" src="" alt="submit">
+    </div>
 
     <div id="chartDiv">
       <canvas id="chart" width="300" height="200"></canvas>
     </div>
 
+    <div id="kittenRight">
+      <img id = "displayRight" type="image" src="" alt="submit">
+    </div>
+
+  </main>
+
+    <div id="submitSection">
 
 
-    <div id="submitDiv">
-      <input type="submit" value="Submit Vote" id="submitButton">
-    <div id="submitDiv">
-      <input type="submit" value="Next Kitten" id="nextButton">
+      <input type="submit" value="Next Kitten" class="hidden" id="nextButton">
 
+    </div> <!--submitSection-->
 
     <script src="js/app.js"></script>
   </body>

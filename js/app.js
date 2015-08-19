@@ -1,4 +1,6 @@
 'use strict';
+$(document).ready(function(){
+
 
 var Photo = function(fileLocation){
   this.path = fileLocation;
@@ -49,59 +51,30 @@ Tracker.prototype.genRand = function() {
 
 Tracker.prototype.displayPhoto = function() {
   tracker.genRand();
-  var elLeft = document.getElementById('displayLeft');
-  var elRight = document.getElementById('displayRight');
-    elLeft.src =  this.leftPhoto;
-    elRight.src = this.rightPhoto;
+  $('#displayLeft').attr('src', this.leftPhoto);
+  $('#displayRight').attr('src', this.rightPhoto);
 };
 
 
-Tracker.prototype.displayDummyChart = function () {
+Tracker.prototype.displayChart = function (leftData, rightData) {
  var chart = document.getElementById('chart').getContext("2d");
  console.log(chart);
  var pieData = [
    {
-     value: 1,
-     color:"#878BB6"
+     value : (rightData/(leftData + rightData)),
+     color : "#1BBC9B"
    },
    {
-     value : 1,
-     color : "#4ACAB4"
+     value: (leftData/(leftData + rightData)),
+     color:"#E64C66"
    }
  ];
-
- var pieOptions = {
- segmentShowStroke : false,
- animateScale : true,
- }
-
- new Chart(chart).Pie(pieData, pieOptions);
-};
-
-Tracker.prototype.displayRealChart = function () {
- var rightVotes = photoArray[randRight].votes;
- var leftVotes = photoArray[randLeft].votes;
- var chart = document.getElementById('chart').getContext("2d");
- console.log(chart);
- var pieData = [
-   {
-     value: (leftVotes/(leftVotes + rightVotes)),
-     color:"#878BB6"
-   },
-   {
-     value : (rightVotes/(leftVotes + rightVotes)),
-     color : "#4ACAB4"
+  var pieOptions = {
+     segmentShowStroke : false,
+     animateScale : true,
    }
- ];
-
- var pieOptions = {
- segmentShowStroke : false,
- animateScale : true,
- }
-
- new Chart(chart).Pie(pieData, pieOptions);
+  new Chart(chart).Pie(pieData, pieOptions);
 };
-
 
 Tracker.prototype.receiveVote = function (e) {
     // e.preventDefault();
@@ -118,48 +91,49 @@ Tracker.prototype.receiveVote = function (e) {
     console.dir(target);
 };
 
-
-var elFormLeft = document.getElementById('displayLeft');
-elFormLeft.addEventListener('click', function(e) {
+$('#displayLeft').on('click', function (e) {
   tracker.receiveVote(e);
+  tracker.displayWinner(e);
 });
 
-var elFormRight = document.getElementById('displayRight');
-elFormRight.addEventListener('click', function(e) {
+$('#displayRight').on('click', function (e) {
   tracker.receiveVote(e);
+  tracker.displayWinner(e);
 });
 
-var elSubmit = document.getElementById("submitButton");
-elSubmit.addEventListener('click', function(e) {
-    tracker.displayWinner(e);
+$('#nextButton').on('click', function (e) {
+  tracker.waitVote(e);
 });
 
-var elNext = document.getElementById("nextButton");
-elNext.addEventListener('click', function(e) {
-    tracker.waitVote(e);
-});
 
 Tracker.prototype.waitVote = function(){
   console.log("I got back to wait Vote");
-  //this is state1 when the user needs to vote on a kitten
-  var submitButton = document.getElementById('submitButton');
-  submitButton.value= 'Submit Vote';
-  tracker.displayDummyChart();
+  $('.winner').removeClass('winner');
+  tracker.displayChart(1, 1);
   tracker.displayPhoto(); //calls genRand
-
+  $('#nextButton').hide();
+  $('#message').text('Pick your favorite kitten!');
 };
 
 Tracker.prototype.displayWinner = function(){
-  //this is state2 after vote that displays the result
   console.log("I got into display winner");
-  //STILL TO DO:
-  //highlight the winning photo - remove button elements from these photos
-  //update h2 id="message"
-  //Need to remove ability to vote on buttons in this function
-  tracker.displayRealChart();
-};
+  tracker.displayChart(photoArray[randLeft].votes, photoArray[randRight].votes);
+  $('#nextButton').show();
 
+  if (photoArray[randRight].votes > photoArray[randLeft].votes){
+      $('#message').text('Survey says right is cuter!');
+      $('#displayRight').addClass('winner');
+  } else if (photoArray[randLeft].votes > photoArray[randRight].votes){
+      $('#message').text('Survey says left is cuter!');
+      $('#displayLeft').addClass('winner');
+
+    } else {
+      $('#message').text('Survey says they are both cute!');
+    }
+
+};
 
 tracker.waitVote();
 
+});
 
