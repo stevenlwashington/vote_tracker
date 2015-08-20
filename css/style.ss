@@ -12,7 +12,7 @@ body {
 #title {
   text-align: center;
   font-size: 55px;
-  color: white;
+  color: #5FB8DE;
 }
 
 #message {
@@ -22,14 +22,14 @@ body {
 }
 
 #kittenLeft {
-  border: 3px solid #5FB8DE;
+  border: 2px solid #F0812B;
   height: 250px;
   width: 250px;
   position: absolute;
 }
 
 #kittenRight {
-  border: 3px solid #F0812B;
+  border: 2px solid #EB0C8D;
   height: 250px;
   width: 250px;
   position: absolute;
@@ -48,17 +48,23 @@ body {
   left: 400px;
 }
 
-#nextButton {
-    background-color: #9eae3d;
+#submitButton {
+    background-color: #2d3e50;
     color: white;
-    border-radius: 15px;
+    border-radius: 10px;
+}
+
+#nextButton {
+    background-color: #2d3e50;
+    color: white;
+    border-radius: 10px;
 
 }
 
 #main .winner {
   height: 300px;
   width: 300px;
-  border: 10px solid #EB0C8D;
+  border: 10px solid #E5DD00;
   padding: -3px;
   margin: -3px;
 
