@@ -1,0 +1,19 @@
+{
+  "name": "myapp",
+  "version": "1.0.0",
+  "description": "server for vote_tracker",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "kittens",
+    "server",
+    "stevenwa"
+  ],
+  "author": "steven washington",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.13.3"
+  }
+}
