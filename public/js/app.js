@@ -10,7 +10,7 @@ var imgurPics = [];
 var photoArray = new Array();
 
 $.ajax({
-  url: 'https://api.imgur.com/3/album/DDoWy',
+  url: 'https://api.imgur.com/3/album/DDoWy.json',
   method: 'GET',
   headers: {
     'Authorization': 'Client-ID 84060fd42c5595c'
